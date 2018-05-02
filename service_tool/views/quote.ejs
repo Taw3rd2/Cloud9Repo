@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css"
+        integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+    <link rel="stylesheet" href="/stylesheets/ReplacementQuote.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Niconne" rel="stylesheet">
+    <title>Replacement Quote</title>
+</head>
+<body>
+    <!-- Header/Showcase -->
+    <header id="showcase" class="grid">
+        <div class="content-wrap">
+            <div class="row">
+                <div class="col">
+                    <div class="container text-center">
+                        <img id="hi_temp_logo" src="/images/logo_hi_temp_heating.png" alt="Hi Temp Heating And Cooling" height="80">
+                        <p><strong>Refrigeration</strong></p>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="container text-center"> 
+                        <h1 class="text-center">Proposal</h1>
+                        <p class="red_text">989-723-8070</p>
+                        <p>2500 E M21-Suite C Corunna, MI 48817</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <h2 class="container text-center red_text" id="proposalNumber">PR8000</h2>
+                    <p class="text-center the_heart">Your hometown heating company</p> 
+                    <p class="text-center the_heart">with a <i class="fa fa-heart red_text" aria-hidden="true"></i></p>           
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Customer Information -->
+    <section id="customer_info" class="grid">
+        <div class="content-wrap">
+            <div class="container">
+                <div class="row no-gutters">
+                    <div class="col">
+                        <input type="name" id="customerName" name="customerName" class="form-control h-75" placeholder="Name">
+                    </div>
+                    <div class="col">
+                        <input type="date" id="currentDate" class="form-control h-75" placeholder="Date">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <input type="text" id="customerAddress" name="customerAddress" class="form-control h-75" placeholder="Address">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">       
+                        <input type="text" id="customerCitystatezip" name="customerCity" class="form-control h-75" placeholder="City, State, Zip">
+                    </div>
+                </div>
+                <div class="row no-gutters">
+                    <div class="col">
+                        <input type="date" id="installationDate" class="form-control h-75" placeholder="Installation Date">
+                    </div>
+                    <div class="col">
+                        <input type="text" id="customerPhonecell" name="customerMobile" class="form-control h-75" placeholder="Mobile Phone">
+                    </div>
+                    <div class="col">
+                        <input type="text" id="customerPhonehome" name="customerHome" class="form-control h-75" placeholder="Home Phone">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Installation Text -->
+    <section id="quote" class="grid">
+        <div class="content-wrap">
+            <div class="container">
+                <p class="paragraph1">To supply and install Heating/Air Condition system as listed below, with necessary plenum adapter, chimney liner,
+                disconnect, SSU switch, A/C pad, condensate drains, new venting materials, new T-stat, mounted on 2" bricks,
+                <strong>IF REQUIRED.</strong>Reconnect to existing gas line, electrical, all labor and misc. materials for a complete working system
+                per Michigas state code. <strong>1yr maintenance on installed Carrier equipment.</strong></p>
+                <div class="row no-gutters">
+                    <div class="col">
+                        <input type="text" name="quotedFurnace" class="form-control h-75" placeholder="Furnace">
+                    </div>
+                    <div class="col">
+                        <input type="text" name="quotedFurnaceModel" class="form-control h-75" placeholder="Furnace Model">
+                    </div>
+                    <div class="col">
+                        <input type="text" name="quotedFurnaceBtus" class="form-control h-75" placeholder="Furnace Btus">
+                    </div>
+                    <div class="col">
+                        <input type="text" name="quotedFurnaceEfficiency" class="form-control h-75" placeholder="Furnace Efficiency">
+                    </div>
+                </div>
+                <div class="row no-gutters">
+                    <div class="col">
+                        <input type="text" name="quotedAirconditioner" class="form-control h-75" placeholder="Air Conditioner">
+                    </div>
+                    <div class="col">
+                        <input type="text" name="quotedAirconditionerModel" class="form-control h-75" placeholder="Air Conditioner Model">
+                    </div>
+                    <div class="col">
+                        <input type="text" name="quotedAirconditionerBtus" class="form-control h-75" placeholder="Air Conditioner Tons">
+                    </div>
+                    <div class="col">
+                        <input type="text" name="quotedAirconditionerEfficiency" class="form-control h-75" placeholder="Air Conditioner Efficiency">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <input type="text" name="warrantyInformation" class="form-control h-75" placeholder="Warranty Information">
+                    </div>
+                </div>
+                <!-- Indoor Air Quality Options -->
+                <h6 class="text-center"><strong>Indoor Air Quality Options</strong></h6>
+                <div class="row no-gutters">
+                    <div class="col">
+                        <input type="text" name="airPurifier" class="form-control h-75" placeholder="Air Purifier">
+                    </div>
+                    <div class="col">
+                        <input type="text" name="airPurifierPrice" class="form-control h-75" placeholder="Air Purifier Price">
+                    </div>
+                    <div class="col">
+                        <input type="text" name="electronicAircleaner" class="form-control h-75" placeholder="Electronic Air Cleaner">
+                    </div>
+                    <div class="col">
+                        <input type="text" name="electronicAircleanerPrice" class="form-control h-75" placeholder="Electronic Air Cleaner Price">
+                    </div>
+                </div>
+                <div class="row no-gutters">
+                    <div class="col">
+                        <input type="text" name="mediaFilter" class="form-control h-75" placeholder="Media Filter">
+                    </div>
+                    <div class="col">
+                        <input type="text" name="mediaFilterPrice" class="form-control h-75" placeholder="Media Filter Price">
+                    </div>
+                    <div class="col">
+                        <input type="text" name="humidifier" class="form-control h-75" placeholder="Humidifier">
+                    </div>
+                    <div class="col">
+                        <input type="text" name="humidifierPrice" class="form-control h-75" placeholder="Humidifier Price">
+                    </div>
+                </div>
+                <div class="row no-gutters">
+                    <div class="col">
+                        <input type="text" name="extendedWarranty" class="form-control h-75" placeholder="Extended Warranty">
+                    </div>
+                    <div class="col">
+                        <input type="text" name="extendedWarrantyPrice" class="form-control h-75" placeholder="Extended Warranty Price">
+                    </div>
+                    <div class="col">
+                        <input type="text" name="ductwork" class="form-control h-75" placeholder="Ductwork/Heat Runs">
+                    </div>
+                    <div class="col">
+                        <input type="text" name="ductworkPrice" class="form-control h-75" placeholder="Ductwork/Heat runs price">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <textarea name="installNotes" id="installNotes" rows="2" class="form-control h-75">Notes</textarea>
+                    </div>
+                </div>
+                <div class="row no-gutters">
+                    <div class="col">
+                        <input type="text" id="discounts" class="form-control h-75" placeholder="Credits/Discounts">
+                    </div>
+                    <div class="col">
+                        <input type="text" name="permitFee" class="form-control h-75" placeholder="Permit Fee">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p class="text-center paragraph1"><strong>We Propose</strong> hereby to furnish material and labor-complete in accordance with above specifications,
+                                for the sum of:</p>
+                    </div>
+                    
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <input type="text" name="proposalWordedPrice" class="form-control h-75" placeholder="Five Thousand Dollars">
+                    </div>
+                    <div class="col">
+                        <input type="text" name="proposalPrice" class="form-control h-75" placeholder="$5000.00">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <input type="text" id="paymentOptions" class="form-control red_text h-75" placeholder="50% Down Payment required to schedule and balace due upon completion">
+                    </div>
+                </div>
+                <div class="row">
+                    <dov class="col">
+                        <input type="text" id="depositRecieved" class="form-control h-75" placeholder="Deposit Recieved">
+                    </dov>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p class="paragraphs2">All material is guaranteed to be as specified. All work to be completed in a workman like manner according to standard practices.
+                                Any alteration or diviation from the above specifications involving extra costs will be executedonly upon written orders, and will become
+                                an extra charge over and above the estamate. All agreements contingent upon strikes, accidents or delays beyond our control. Owner to
+                                carryfire, tornado, and other necessary insurance. Our workers are fully covered by Workmans Compensation Insurance.</p>
+                        <p class="paragraphs2"><strong>Acceptance Of Proposal</strong>-The above prices, specifications and conditions are satisfactory and are hereby accepted.
+                        You are authorized to do the work as specified. Payment will be made as outlined above.</p>       
+                    </div>
+                    <div class="col">
+                            <input type="text" id="authorizedSalesperson" class="form-control" placeholder="<%= currentUser.username %>">
+                            <input type="text" id="quoteExpiration" class="form-control" placeholder="Valid for 30 days">
+                            <input type="text" id="authorizedSignature" class="form-control" placeholder="Acceptance Signature">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

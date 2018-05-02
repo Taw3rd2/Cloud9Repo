@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatable" content="ie-edge">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+        <link rel="stylesheet" href="/stylesheets/accalc.css">
+        <title>Service Tool</title>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="/"><i class="fa fa-wrench"></i> Service Tool</a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <% if(!currentUser){ %>
+                            <li><a href="/login">Login</a></li>
+                            <li><a href="/register">Sign Up</a></li>
+                        <% } else { %>
+                            <li><a href="#">Signed In As <%= currentUser.username %></a></li>
+                            <li><a href="/logout">Logout</a></li>
+                        <% } %>
+                    </ul>
+                    
+                </div>
+            </div>
+        </nav>
+        
+    <!-- Header Showcase -->
+
+    <header id="showcase" class="grid">
+        <div class="content-wrap">
+            <h2><strong>Air Conditioner Quote Constructor</strong></h2>
+            <p class="lead">A basic air conditioner replacement quote constructor that uses 18 btus per square ft for a one story building,
+                and 23 btus per square foot for a multi level building.</p>
+        </div>
+    </header>
+    
+    <!-- Main Area -->
+    <main id="main">
+
+        <!-- Section A (Size Constructor) -->
+        <div class="container">
+            <section id="section-a" class="grid">
+                <div class="content-wrap">    
+                    <h2>Calculate BTUs Needed</h2>
+                    <div class="row">
+                        <div class="col">
+                            <input id="one_story" type="radio" name="multiplier" value="18" checked>
+                            <label for="one_story" class="radio">One Story</label>
+                        </div>
+                        <div class="col">
+                            <input id="two_story" type="radio" name="multiplier" value="23">
+                            <label for="two_story" class="radio">Two Story</label>
+                        </div>
+                    </div>
+                    <div>
+                        <h2>Square Foot Of The Building</h2>
+                        <input id="sqft_input" type="number">
+                    </div>
+                    <div>
+                        <h2>Required BTUs</h2>
+                        <h1><span id="reqBtus">0</span> BTUs</h1>
+                    </div>
+                    <div id="selector">
+                        <h2>Selected BTU Input</h2>
+                        <button id="bump_down" class="btn">Bump -</button>
+                        <h1 id="btu_selector">18000</h1>
+                        <button id="bump_up" class="btn">Bump +</button>
+                    </div>
+                    <div>
+                        <button id="section1submit" class="btn">Select This Size</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+        
+        <!-- Section B (Model Selection)-->
+        <div class="container">
+        <section id="section-b" class="grid">
+            <div class="content-wrap">
+                <h2>Model Selection</h2>
+                <p>Equipment List based on Brand, and BTU selection</p>
+                <ul>
+                    <li id="condenser1">
+                        <div class="card">
+                            <a href="https://www.payne.com/en/us/products/air-conditioners/pa13na/">
+                                <div class="payneheadertitle">
+                                    <h4>Payne</h4>
+                                    <h5>PA13NA Air Conditioner</h5>
+                                </div>
+                                <div class="midtext">
+                                    <img src="https://files.payne.com/payne/en/us/contentimages/PA13NA_AC_Grid.jpg" alt="PA13NA" class="left-img">
+                                </div>
+                                <table class="responsive-table">
+                                    <tr>
+                                        <td>
+                                            <i class="fa fa-check"></i>
+                                        </td>
+                                        <td>
+                                            <i class="fa fa-check"></i>
+                                        </td>
+                                        <td>
+                                            <i class="fa fa-check"></i>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>13 S.E.E.R.</td>
+                                        <td>Single Stage</td>
+                                        <td>74 Decibel</td>
+                                    </tr>
+                                </table>
+                            </a>
+                            <div class="card-content">
+                                <p>Base Installation Price</p>
+                                <p id="payneSingle80Card"><strong>0.00</strong></p>
+                                <button id="f1btn" class="btn">Select</button>
+                            </div>
+                        </div>
+                    </li>
+                    <li id="condenser2">
+                        <div class="card">
+                            <a href="https://www.carrier.com/residential/en/us/products/air-conditioners/24abb3/">
+                                <div class="carrierheadertitle">
+                                    <h4>Carrier</h4>
+                                    <h5>24ABB Air Conditioner</h5>
+                                </div>
+                                <div class="midtext">
+                                    <img src="https://files.carrier.com/residential/en/us/contentimages/comfort-air-conditioner-24ABB3-328x328.gif" alt="24ABB" class="left-img">
+                                </div>
+                                <table class="responsive-table">
+                                    <tr>
+                                        <td>
+                                            <i class="fa fa-check"></i>
+                                        </td>
+                                        <td>
+                                            <i class="fa fa-check"></i>
+                                        </td>
+                                        <td>
+                                            <i class="fa fa-check"></i>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>13 S.E.E.R.</td>
+                                        <td>Single Stage</td>
+                                        <td>72 Decibel</td>
+                                    </tr>
+                                </table>
+                            </a>
+                            <div class="card-content">
+                                <p>Base Installation Price</p>
+                                <p id="payneSingle95Card"><strong>0.00</strong></p>
+                                <button id="f2btn" class="btn">Select</button>
+                            </div>
+                        </div>
+                    </li>
+                    <li id="condenser3">
+                        <div class="card">
+                            <a href="https://www.carrier.com/residential/en/us/products/air-conditioners/24abc6/">
+                                <div class="carrierheadertitle">
+                                    <h4>Carrier</h4>
+                                    <h5>24ABC Air Conditioner</h5>
+                                </div>
+                                <div class="mitext"></div>
+                                    <img src="https://files.carrier.com/residential/en/us/contentimages/comfort-air-conditioner-24ABC6-328x328.gif" alt="24ABC" class="left-img">
+                                </div>
+                                <table class="responsive-table">
+                                    <tr>
+                                        <td>
+                                            <i class="fa fa-check"></i>
+                                        </td>
+                                        <td>
+                                            <i class="fa fa-check"></i>
+                                        </td>
+                                        <td>
+                                            <i class="fa fa-check"></i>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>16 S.E.E.R.</td>
+                                        <td>Single Stage</td>
+                                        <td>76 Decibel</td>
+                                    </tr>
+                                </table>
+                            </a>
+                            <div class="card-content">
+                                <p>Base Installation Price</p>
+                                <p id="payneTwo95Card"><strong>0.00</strong></p>
+                                <button id="f3btn" class="btn">Select</button>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+        </div>
+        
+         <!-- Section C Required Additions -->
+
+        <div class="container">
+        <section id="section-c" class="grid">
+            <div class="content-wrap">
+                <h1>Additional Required Items</h1>
+                    <p>Things we will need to correctly adapt the new appliance</p>
+                <table class="responsive-table" id="addonTable">
+                    <thread>
+                        <tr>
+                            <th>Add</th>
+                            <th>Description</th>
+                            <th>Price</th>
+                        </tr>
+                    </thread>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="cond-pump-add" id="cond-pump-add">
+                            </td>
+                            <td>Condensate Pump and Required Tubing</td>
+                            <td>$150.00</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="prog-tstat-add" id="prog-tstat-add">
+                            </td>
+                            <td>Programmable Thermostat
+                                <a href="http://www.emersonclimate.com/Documents/White-Rodgers/instruction_sheets/1F78-151_37-6193A-fr.pdf">(White Rogers Model 1F78-151)</a>
+                            </td>
+                            <td>$70.00</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="two-tstat-add" id="two-tstat-add">
+                            </td>
+                            <td>Two Stage Programmable Thermostat
+                                <a href="http://www.emersonclimate.com/Documents/White-Rodgers/instruction_sheets/37-7554B-FR.pdf">(Emerson Model 1F85U-42PR)</a>
+                            </td>
+                            <td>$150.00</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="lowboy-boot-add" id="lowboy-boot-add">
+                            </td>
+                            <td>Return Ductwork with a External Filter Slot (lowboy)</td>
+                            <td>$75.00</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="crawl-attic-add" id="crawl-attic-add">
+                            </td>
+                            <td>Attic or Crawlspace Installation</td>
+                            <td>$200.00</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="after-hours-add" id="after-hours-add">
+                            </td>
+                            <td>After Hours (Emergency) Installation</td>
+                            <td>$150.00</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="horz-install-add" id="horz-install-add">
+                            </td>
+                            <td>Horizonal Installation Ductwork, and Accessories</td>
+                            <td>$100.00</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="tenyear-warranty-add" id="tenyear-warranty-add">
+                            </td>
+                            <td>Upgrade the 1 year Payne labor warranty to a 10 year labor warranty</td>
+                            <td>$475.00</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="one-piece-permit" id="one-piece-permit">
+                            </td>
+                            <td>One piece permit</td>
+                            <td>$200.00</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="two-piece-permit" id="two-piece-permit">
+                            </td>
+                            <td>two piece permit</td>
+                            <td>$250.00</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="sbpHumidifier" id="sbpHumidifier">
+                            </td>
+                            <td>Add Small Bypass Humidifier durring installation</td>
+                            <td>$350.00</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="lbpHumidifier" id="lbpHumidifier">
+                            </td>
+                            <td>Add Large Bypass Humidifier durring installation</td>
+                            <td>$380.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        </div>
+
+        <!-- Section D -->
+        <div class="container">
+            <section id="section-d" class="grid">
+                <div class="content-wrap">
+                    <h1>Summary and Totals</h1>
+                    <table class="resposive-table" id="myTable">
+                            <th>Quantity</th>
+                            <th>Description</th>
+                            <th>Total</th>
+                        <tr>
+                            <td>1</td>
+                            <td id="selectedEquipment">Equipment Description</td>
+                            <td id="selectedUnitPrice">$0.00</td>
+                        </tr>
+                    </table>
+                    <button id="totalButton" style="margin: 40px;" class="btn">Quick Total</button>
+                    <h2 style="margin: 40px;">Quote total installed price:   <span id="totalPriceDisplay" style="font-size: 1.5em;">$0.00</span></h2>
+                </div>
+            </section>
+        </div>
+        
+        <!-- Section E -->
+        <div class="container">
+            <section id="section-e" class="grid">
+                <div class="content-wrap contact">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Customer Info</div>
+                            <div class="panel-body">
+                                <form action="" method="">
+                                    <input class="form-control" type="text" id="customername" name="customername" placeholder="customer name">
+                                    <input class="form-control" type="text" name="customeraddress" placeholder="customer address">
+                                    <input class="form-control" type="text" name="customercitystatezip" placeholder="customer city,state,zip">
+                                    <input class="form-control" type="text" name="customermobile" placeholder="customer mobile phone">
+                                    <input class="form-control" type="text" name="customerhome" placeholder="customer home phone">
+                                    <input class="form-control" type="text" name="customerjobnumber" placeholder="new job number">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <a href="/quote"><button class="btn">Create Quote</button></a>
+                    <a href="/matlist"><button class="btn">Create Material List</button></a>
+                </div>
+            </section>
+        </div>
+        
+    </main>
+    <script src="/js/accalc.js"></script>
+<% include ./partials/footer %>

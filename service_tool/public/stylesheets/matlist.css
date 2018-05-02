@@ -1,0 +1,74 @@
+body{
+    min-width: 150px;
+}
+
+/* Showcase/Jumbotron */
+#showcase {
+    padding: 0;
+    margin: 0;
+}
+
+/* table section */
+table { 
+    width: 100%; 
+    border-collapse: collapse; 
+}
+
+#material_list .box {
+    padding: 0;
+    margin: 0;
+    color: #fff;
+  }
+  
+#material_list .box:first-child {
+    background: #2690d4;
+  }
+  
+.form-control{
+    padding: 0;
+}
+
+  /* Zebra striping */
+.unit-table:nth-of-type(odd) { 
+    background: #eee; 
+}
+
+th { 
+    background: #333; 
+    color: white; 
+    font-weight: bold; 
+}
+
+td, th { 
+    padding: 0px; 
+    border: 1px solid #ccc; 
+    text-align: center; 
+}
+
+#table_col1 {
+    width: 5%;
+}
+
+#table_col2 {
+    width: 40%;
+}
+
+#table_col3 {
+    width: 5%;
+}
+
+#table_col4 {
+    width: 5%;
+}
+
+#table_col5 {
+    width: 10%;
+}
+
+#table_col6 {
+    width: 10%;
+}
+
+#table_col7 {
+    width: 10%;
+}

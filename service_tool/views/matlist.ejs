@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="/stylesheets/matlist.css">
+    
+    <title>Material Requisition</title>
+</head>
+<body>
+    <!-- Header -->
+    <header id="showcase" class="grid">
+        <div class="content-wrap">
+            <div class="row">    
+                <div class="col text-center">        
+                    <img id="hi_temp_logo" src="/images/logo_hi_temp_heating.png" alt="Hi Temp Heating And Cooling" height="75">
+                    <p><strong>Refrigeration</strong></p>
+                </div>
+                <div class="col">
+                    <h4 class="text-center">Material Requisition</h4>
+                    <input type="text" class="form-control font-weight-bold text-center" id="job_name-input" placeholder="Job Name">
+                    <input type="text" class="form-control font-weight-bold text-center" id="job_number-input" placeholder="Job Number">
+                </div>
+                <div class="col">
+                    <input type="name" class="form-control" id="job_ordered_by_input" placeholder="<%= currentUser.username %>">
+                    <input type="date" class="form-control form-control-sm" id="job_date_needed_input" placeholder="Date Needed">
+                    <input type="name" class="form-control form-control-sm" id="job_filled_by_input" placeholder="Filled By">
+                </div>
+            </div>
+        </div>                   
+    </header>
+    <section id="material_list" class="grid">
+        <div class="content-wrap">
+            <table class="responsive-table" id="materialTable">
+                    <th id="table_col1">Quantity</th>
+                    <th id="table_col2">Discription</th>
+                    <th id="table_col3">stock pull</th>
+                    <th id="table_col4">supplier pull</th>
+                    <th id="table_col5">supplier</th>
+                    <th id="table_col6">unit price</th>
+                    <th id="table_col7">total</th>
+                <tr id="row_0" class="unit-table">
+                    <td name="materialQuantity"><input type="text" class="form-control text-center"/></td>
+                    <td name="materialDiscription"><input type="text" class="form-control text-left"/></td>
+                    <td name="quantityFromStock"><input type="text" class="form-control text-center"/></td>
+                    <td name="quantityFromSupplier"><input type="text" class="form-control text-center"/></td>
+                    <td name="supplierName"><input type="text" class="form-control text-center"/></td>
+                    <td name="materialPrice"><input type="number" class="form-control text-center"oninput="calculate('row_0')"/></td>
+                    <td name="extended"><input type="number" class="form-control text-center total-price"/></td>
+                </tr>
+
+            </table>
+        </div>
+    </section>
+    <section id="totals" class="grid">
+        <div class="row">
+            <!-- Buttons -->
+            <div class="col">
+                <input class="btn btn-outline-success" type="button" value="+" onclick="addRow('materialTable')" />
+                <input class="btn btn-outline-info" type="button" value="totals" onclick="subtotaler()" />
+                 <input class="btn btn-outline-danger" type="button" value="-" onclick="deleteRow('materialTable')" />
+            </div>
+            <!-- totals -->
+            <div class="col">
+                <label for="material_sub_total">Sub Total</label>
+                <input type="text" class="form-control form-control-sm" id="material_sub_total">
+            </div>
+            <div class="col">
+                <label for="material_tax">Tax</label>
+                <input type="text" class="form-control form-control-sm" id="material_tax">
+            </div>
+            <div class="col">
+                <label for="material_total">Material Total</label>
+                <input type="text" class="form-control form-control-sm" id="material_total">
+            </div>
+        </div>
+    </section>
+        <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="/js/matlist.js"></script>
+</body>
+</html>

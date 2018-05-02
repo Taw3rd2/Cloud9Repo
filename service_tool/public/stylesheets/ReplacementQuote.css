@@ -1,0 +1,36 @@
+body {
+    margin: 0;
+}
+
+#showcase {
+    max-height: 170px;
+}
+input::placeholder {
+    font-style: italic;
+}
+
+.red_text {
+    color: red;
+    margin: 0;
+}
+
+.the_heart {
+    font-family: 'Niconne', cursive;
+    font-size: 1.5em;
+    margin: 0;
+}
+
+.paragraph1 {
+    font-size: .9em;
+    margin: 0;
+}
+
+.paragraphs2 {
+    font-size: .5em;
+    margin: 0;
+}
+
+input.red_text::-webkit-input-placeholder { color: red; }
+input.red_text::-moz-placeholder { color: red; }
+input.red_text:-ms-input-placeholder { color: red; }
+input.red_text:-moz-placeholder { color: red; }

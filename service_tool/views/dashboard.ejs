@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+                <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+
+        <link rel="stylesheet" href="/stylesheets/dashboard.css">
+        <title>Customer Manager</title>
+        <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/4.9.1/firebase-firestore.js"></script>
+    </head>
+    
+    <body>
+        <!-- NAVBAR -->
+        <div class="navbar-fixed">
+            <nav class="nav-wrapper green">
+                    <a class="brand-logo" href="/dashboard">
+                    <i class="material-icons large">account_box</i>  Service Tool</a>
+
+                    <ul class="right hide-on-med-and-down">
+                        <% if(!currentUser){ %>
+                            <li class="email white-text"><a class="nav-link" href="/login">Login</a></li>
+                            <li class="white-text"><a class="nav-link" href="/register">Sign Up</a></li>
+                        <% } else { %>
+                            <li class="white-text"><i class="large material-icons">search</i></li>
+                            <li class="white-text"><a class="nav-link" href="#">Signed In As <%= currentUser.username %></a></li>
+                            <li class="white-text"><a class="nav-link" href="/logout">Logout</a></li>
+                        <% } %>
+                    </ul>
+                
+            </nav>
+        </div>
+        
+        <!-- Content -->
+        <div id="content" class="grid"> <!-- was row -->
+            <ul>
+                <li>
+                    <div id="dashboard" class="card">
+                        <div>
+                            
+                            <input id="search" placeholder=" search here"><i class="material-icons">search</i>
+                            <div class="search-results"></div>
+                        </div>
+                            <table class="striped bordered highlight">
+                                <tbody id="clist">
+                                    
+                                </tbody>
+                            </table>
+                            <a id="addcustfab" href="/newCustomer" class="btn-floating btn-large right z-depth-4 red">
+                            <i class="large material-icons">add</i></a>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div id="day-calendar" class="card" style="max-height: 875;">
+                        <h4>Appointments Daily Section</h4>
+                        <p>under construction</p>
+                        <!-- <iframe src="https://calendar.google.com/calendar/embed?showTitle=0&amp;showPrint=0&amp;showTz=0&amp;mode=DAY&amp;height=875&amp;wkst=2&amp;bgcolor=%23FFFFFF&amp;src=zeeroh71%40gmail.com&amp;color=%232952A3&amp;ctz=America%2FNew_York" style="border-width:0" width="625" height="875" frameborder="0" scrolling="no"></iframe> -->
+                    </div>
+                </li>
+                <li>
+                    <div id="month-calendar" class="card">
+                        <h4>Appointments Monthly Section</h4>
+                        <p>under construction</p>
+                        <!-- <iframe src="https://calendar.google.com/calendar/embed?showTitle=0&amp;showPrint=0&amp;showTz=0&amp;mode=MONTH&amp;height=450&amp;wkst=2&amp;bgcolor=%23FFFFFF&amp;src=zeeroh71%40gmail.com&amp;color=%232952A3&amp;ctz=America%2FNew_York" style="border-width:0" width="625" height="450" frameborder="0" scrolling="no"></iframe> -->
+                    </div>
+                </li>
+            </ul>
+        </div>
+    
+
+        
+        <!-- viewCustomer Modal -->
+        <div id="viewCustomer" class="modal modal-fixed-footer">
+        </div>
+        
+        <!-- viewFurnace1 Modal -->
+        <div id="viewFurnace1" class="modal modal-fixed-footer">
+        </div>
+          
+        <!-- editCustomer Modal -->
+        <div id="editCustomer" class="modal modal-fixed-footer">
+        </div>
+        
+        <!-- editEquipment Modal -->
+        <div id="editEquipment" class="modal modal-fixed-footer">
+        </div>
+        
+        <!-- newEquipment Modal -->
+        <div id="newEquipment" class="modal modal-fixed-footer">
+        </div>
+
+        
+        <script
+              src="https://code.jquery.com/jquery-3.3.1.min.js"
+              integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+              crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+        <script>
+              // INITIALIZE FIRESTORE
+            var config = {
+            apiKey: "AIzaSyALt3V0U_9A6DZBmducVWvAchE3XUG6qdY",
+            authDomain: "vuefs-cust.firebaseapp.com",
+            databaseURL: "https://vuefs-cust.firebaseio.com",
+            projectId: "vuefs-cust",
+            storageBucket: "vuefs-cust.appspot.com",
+            messagingSenderId: "464183442563"
+            };
+            firebase.initializeApp(config);
+            var db = firebase.firestore();
+            const customersRef = db.collection('customers');
+            
+            const ul = document.getElementById("clist");
+            const customers = [];
+          
+            // CREATE THE LIST OF CUSTOMERS
+            var allCustomers = customersRef.orderBy('lastname').get()
+                .then(snapshot => {
+                    snapshot.forEach(doc => {
+                        ul.innerHTML +=`
+                            <tr id="viewRow" onclick="return openModal('${doc.id}')">
+                                <td>
+                                    <span class="chip">${doc.data().city}</span>
+                                </td>
+                                <td>
+                                    <p><strong>${doc.data().firstname}</strong></p>
+                                </td>
+                                <td>
+                                    <p><strong>${doc.data().lastname}</strong></p>
+                                </td>
+                                <td>
+                                    <span class="chip green white-text">Contract</span>
+                                    <span class="chip red white-text">Warranty</span>
+                                    
+                                </td>
+                            </tr>
+                        `
+                    });
+                })
+                .catch(err => {
+                    console.log('Error getting documents', err);
+                });
+            
+            // REALTIME UPDATE LISTENER
+            var observer = customersRef.onSnapshot(querySnapshot => {
+                console.log(`Recieved new snapshot of size ${querySnapshot.size}`);
+            }, err => {
+                console.log(`Encountered error: ${err}`);
+            });
+            
+            
+            // HELPERS TO USE MATERIALIZE MODALS
+            (function($){
+              $.fn.leanModal = function(options) {
+                if( $('.modal').length > 0 ){
+                    $('.modal').modal(options);
+                }
+              };
+            
+              $.fn.openModal = function(options) {
+                $(this).modal(options);
+                $(this).modal('open');
+              };
+            
+              $.fn.closeModal = function() {
+                $(this).modal('close');
+              };
+            })(jQuery);
+            
+            $(document).ready(function(){
+                // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+                $('.modal-trigger').leanModal();
+              });
+              
+
+            
+            // CREATE NEW EQUIPMENT
+            const ne = document.getElementById("newEquipment");
+            function createEquipment(custId) {
+                console.log(custId);
+                var neRef = db.collection('customers').doc(custId);
+                var getDoc = neRef.get()
+                    .then(doc => {
+                        if (!doc.exists) {
+                            console.log('No such document!');
+                        } else {
+                            console.log('Document data:', doc.data());
+                            ne.innerHTML = `
+                                <div id="ecContent" class="modal-content">
+                                <h5 class="center-align">Equipment Creator</h5>
+                                    <div class="row">
+                                        <div class="col s6 center-align">
+                                            <label for="equipmentname">Equipment Type/Name</label>
+                                            <input id="equipmentname" type="text"></input>
+                                        </div>
+                                        <div class="col s6 center-align">
+                                            <label for="equipmentbrand">Equipment Brand</label>
+                                            <input id="equipmentbrand" type="text"></input>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col s6">
+                                            <label for="equipmentmodel">Model Number</label>
+                                            <input id="equipmentmodel" type="text"></input>
+                                        </div>
+                                        <div class="col s6">
+                                            <label for="equipmentserial">Serial Number</label>
+                                            <input id="equipmentserial" type="text"></input>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col s4">
+                                            <label for="equipmentfuel">Fuel / Freon Type</label>
+                                            <input id="equipmentfuel" type="text"></input>
+                                        </div>
+                                        <div class="col s4">
+                                            <label for="equipmentvoltage">Voltage</label>
+                                            <input id="equipmentvoltage" type="text"></input>
+                                        </div>
+                                        <div class="col s4">
+                                            <label for="equipmenteff">Efficiency Rating</label>
+                                            <input id="equipmenteff" type="text"></input>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col s6 center-align">
+                                            <label for="equipmentbtu">BTU Output Rating</label>
+                                            <input id="equipmentbtu" type="text"></input>
+                                        </div>
+                                    </div>
+                                    
+                                    <hr>
+                                    <label for="equNotes">Notes</label>
+                                    <textarea id="equNotes" class="materialize-textarea disabled" rows="12"></textarea>
+                                </div>
+                                <div class="modal-footer">
+                                    <button id="createBtn" class="btn">Create</button>
+                                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
+                                </div>
+                                            `
+                            $('#eqNotes').trigger('autoresize'); 
+                            $('#newEquipment').modal('open');
+                            
+                            var equipmentNameIn = document.getElementById("equipmentname");
+                            var equipmentBrandIn = document.getElementById("equipmentbrand");
+                            var equipmentModelIn = document.getElementById("equipmentmodel");
+                            var equipmentSerialIn = document.getElementById("equipmentserial");
+                            var equipmentFuelIn = document.getElementById("equipmentfuel");
+                            var equipmentVoltageIn = document.getElementById("equipmentvoltage");
+                            var equipmentBtuIn = document.getElementById("equipmentbtu");
+                            var equipmentEffIn = document.getElementById("equipmenteff");
+                            var equipmentNotesIn = document.getElementById("equNotes");
+                            
+                            var newEquipmentData = {
+                                    equipmentBrand: "",
+                                    equipmentModel: "",
+                                    equipmentSerial: "",
+                                    equipmentFuel: "",
+                                    equipmentVoltage: "",
+                                    equipmentBtu: "",
+                                    equipmentEff: "",
+                                    eqNotes: ""
+                                    }
+                            
+                            createBtn.onclick = function() {
+                                newEquipmentName = equipmentNameIn.value;
+                                newEquipmentData.equipmentBrand = equipmentBrandIn.value;
+                                newEquipmentData.equipmentModel = equipmentModelIn.value;
+                                newEquipmentData.equipmentSerial = equipmentSerialIn.value;
+                                newEquipmentData.equipmentFuel = equipmentFuelIn.value;
+                                newEquipmentData.equipmentVoltage = equipmentVoltageIn.value;
+                                newEquipmentData.equipmentBtu = equipmentBtuIn.value;
+                                newEquipmentData.equipmentEff = equipmentEffIn.value;
+                                newEquipmentData.eqNotes = equipmentNotesIn.value;
+                                updateEquipmentDocument(customersRef, custId, newEquipmentName, newEquipmentData);
+                                // put a function here that creates a button with the equipment name 
+                                // store the button in the customers primary db 
+                                // call the button when the view customer modal is opened
+                                $('#newEquipment').modal('close');
+                                $('#viewCustomer').modal('close');
+                                openModal(custId);
+                                Materialize.toast('Updated Successfully', 4000);
+                            }
+                        }
+                    })
+                    .catch(err => {
+                        console.log('Error getting document', err);
+                    });
+            }
+            
+              
+            // VIEW CUSTOMER              
+            const vc = document.getElementById("viewCustomer");
+            function openModal(custId) {
+                console.log(custId);
+                var cRef = db.collection('customers').doc(custId);
+                var getDoc = cRef.get()
+                    .then(doc => {
+                        if (!doc.exists) {
+                            console.log('No such document!');
+                        } else {
+                            vc.innerHTML = `
+                                <div id="modalFooter" class="modal-footer">
+                                    <button class="btn" onclick="return createEquipment('${doc.id}')">+</button>
+                                    <button class="btn">Maint Items</button>
+                                    <button class="btn" type="text" onclick="return updateCustomer('${doc.id}')">Edit</button>
+                                    <button class="btn red" type="text" onclick="return deleteCustomer('${doc.id}')">Delete</button>
+                                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
+                                    <hr>
+                                </div>
+                                            `        
+                            vc.innerHTML += `
+                                <div id="vcContent" class="modal-content">
+                                <ul>
+                                    <li class="center-align"><h4>${doc.data().firstname} ${doc.data().lastname}</h4></li>
+                                    <li class="center-align"><p>${doc.data().street}</p></li>
+                                    <li class="center-align"><p>${doc.data().city}, ${doc.data().state} ${doc.data().zip}</P></li>
+                                    <li class="center-align"><p>Primary Phone Number: ${doc.data().phone}</p></li>
+                                    <li class="center-align"><p>Alternate Phone Number: ${doc.data().altphone}</p></li>
+                                    </ul>
+                                    <hr>
+                                    <label for="ta1">Customer Notes</label>
+                                    <textarea id="ta1" class="materialize-textarea disabled" rows="12">${doc.data().cnotes}</textarea>
+                                </div>
+                                            `
+                            getEquipmentButtons(custId);
+                            $('#ta1').trigger('autoresize'); 
+                            $('#viewCustomer').modal('open');
+                        }
+                    })
+                    .catch(err => {
+                        console.log('Error getting document', err);
+                    });
+            }
+            
+            
+            // CREATE A LIST OF EQUIPMENT BUTTONS
+            // getEquipmentButtons(custId);
+            function getEquipmentButtons(custId) {
+                footerRef = document.getElementById('modalFooter');
+                const customersEquipmentRef = customersRef.doc(custId).collection('Equipment');
+                
+                var allEquipment = customersEquipmentRef.get()
+                    .then(snapshot => {
+                        snapshot.forEach(doc => {
+                            if (!doc.exists){
+                                console.log('No equipment found to make buttons with');
+                            } else {
+                                footerRef.innerHTML += `
+                                    <button class="btn" type="text" onclick="return openFurnaceModal('${custId}','${doc.id}')">${doc.id}</button>  
+                                                `
+                            }
+                        })
+                    })
+                    .catch(err => {
+                       console.log('Error getting equipment list or there is no list to be found...', err); 
+                    });
+            }
+            
+            
+            
+            // VIEW EQUIPMENT
+            const vf = document.getElementById("viewFurnace1");
+            
+            
+            function openFurnaceModal(custId, equName) {
+                console.log(custId);
+                var cRef = db.collection('customers').doc(custId).collection('Equipment').doc(equName);
+                var getDoc = cRef.get()
+                    .then(doc => {
+                        if (!doc.exists) {
+                            console.log('No such document!');
+                        } else {
+                            vf.innerHTML = `
+                                <div id="vf1Content" class="modal-content">
+                                    <ul>
+                                        <li class="center-align"><h4>${doc.id}</h4></li>
+                                        <li class="center-align"><p>Brand: ${doc.data().equipmentBrand}</p></li>
+                                        <li class="center-align"><p>Model: ${doc.data().equipmentModel}</p></li>
+                                        <li class="center-align"><p>Serial: ${doc.data().equipmentSerial}</P></li>
+                                        <li class="center-align"><p>Fuel: ${doc.data().equipmentFuel}</P></li>
+                                        <li class="center-align"><p>Voltage: ${doc.data().equipmentVoltage}</P></li>
+                                        <li class="center-align"><p>BTU Output: ${doc.data().equipmentBtu}</P></li>
+                                        <li class="center-align"><p>Efficiency: ${doc.data().equipmentEff}</P></li>
+                                    </ul>
+                                    <hr>
+                                    <label for="fn1">Furnace 1 Notes</label>
+                                    <textarea id="fn1" class="materialize-textarea disabled" rows="12">${doc.data().eqNotes}</textarea>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn">Edit</button>
+                                    <button class="btn">Maint Items</button>
+                                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
+                                </div>
+                                            `
+                            $('#fn1').trigger('autoresize'); 
+                            $('#viewFurnace1').modal('open');
+                        }
+                    })
+                    .catch(err => {
+                        console.log('Error getting document', err);
+                    });
+            }
+            
+            
+            
+            
+            // EDIT CUSTOMER
+            const ec = document.getElementById("editCustomer");
+            function updateCustomer(custId) {
+                console.log(custId);
+                var ecRef = db.collection('customers').doc(custId);
+                var getDoc = ecRef.get()
+                    .then(doc => {
+                        if (!doc.exists) {
+                            console.log('No such document!');
+                        } else {
+                            console.log('Document data:', doc.data());
+                            ec.innerHTML = `
+                                <div id="ecContent" class="modal-content">
+                                    <div class="row">
+                                        <div class="col s6">
+                                            <label for="firstname">First Name</label>
+                                            <input id="firstname" type="text" value="${doc.data().firstname}"></input>
+                                        </div>
+                                        <div class="col s6">
+                                            <label for="lastname">Last Name</label>
+                                            <input id="lastname" type="text" value="${doc.data().lastname}"></input>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col s12">
+                                            <label for="street">Street Address</label>
+                                            <input id="street" type="text" value="${doc.data().street}"></input>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col s4">
+                                            <label for="city">City</label>
+                                            <input id="city" type="text" value="${doc.data().city}"></input>
+                                        </div>
+                                        <div class="col s4">
+                                            <label for="state">State</label>
+                                            <input id="state" type="text" value="${doc.data().state}"></input>
+                                        </div>
+                                        <div class="col s4">
+                                            <label for="zip">Zip Code</label>
+                                            <input id="zip" type="text" value="${doc.data().zip}"></input>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col s6">
+                                            <label for="phone">Primary Phone Number</label>
+                                            <input id="phone" type="text" value="${doc.data().phone}"></input>
+                                        </div>
+                                        <div class="col s6">
+                                            <label for="altphone">Alternate Phone Number</label>
+                                            <input id="altphone" type="text" value="${doc.data().altphone}"></input>
+                                        </div>
+                                    </div>
+                                    
+                                    <hr>
+                                    <label for="ecNotes">Notes</label>
+                                    <textarea id="ecNotes" class="materialize-textarea disabled" rows="12">${doc.data().cnotes}</textarea>
+                                </div>
+                                <div class="modal-footer">
+                                    <button id="updateBtn" class="btn">Update</button>
+                                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
+                                </div>
+                                            `
+                            $('#ecNotes').trigger('autoresize'); 
+                            $('#editCustomer').modal('open');
+                            
+                            var upAltphone = document.getElementById("altphone");
+                            var upCity = document.getElementById("city");
+                            var upFirstname = document.getElementById("firstname");
+                            var upLastname = document.getElementById("lastname");
+                            var upPhone = document.getElementById("phone");
+                            var upState = document.getElementById("state");
+                            var upStreet = document.getElementById("street");
+                            var upZip = document.getElementById("zip");
+                            var upCnotes = document.getElementById("ecNotes");
+                            
+                            var data = {
+                                altphone: "",
+                                city: "",
+                                firstname: "",
+                                lastname: "",
+                                phone: "",
+                                state: "",
+                                street: "",
+                                zip: "",
+                                cnotes: ""
+                                }
+                            
+                            updateBtn.onclick = function() {
+                                data.altphone = upAltphone.value;
+                                data.city = upCity.value;
+                                data.firstname = upFirstname.value;
+                                data.lastname = upLastname.value;
+                                data.phone = upPhone.value;
+                                data.state = upState.value;
+                                data.street = upStreet.value;
+                                data.zip = upZip.value;
+                                data.cnotes = upCnotes.value;
+                                updateDocument(customersRef, custId, data);
+                                $('#editCustomer').modal('close');
+                                $('#viewCustomer').modal('close');
+                                openModal(custId);
+                                Materialize.toast('Updated Successfully', 4000);
+                            }
+                        }
+                    })
+                    .catch(err => {
+                        console.log('Error getting document', err);
+                    });
+            }
+
+            // UPDATE DOCUMENT
+            function updateDocument(collection, documentId, updatedDocument) {
+                collection.doc(documentId).update(updatedDocument).then(function() {
+                    console.log("Document successfully updated!");
+                })
+                .catch(function(error) {
+                    console.error("Error updating document: ", error);
+                }, { merge: true });
+            };
+            
+            // Update EQUIPMENT
+            function updateEquipmentDocument(custCollection, documentId, docName, updatedDocument) {
+                custCollection.doc(documentId).collection('Equipment').doc(docName).set(updatedDocument).then(function() {
+                    console.log("Document successfully updated!");
+                })
+                .catch(function(error) {
+                    console.error("Error updating document: ", error);
+                }, { merge: true });
+            };
+            
+            // DELETE CUSTOMER     
+            function deleteCustomer(custId) {
+                var deleteDoc = db.collection('customers').doc(custId).delete();
+                console.log("customer deleted!!");
+                window.location.reload(true);
+                Materialize.toast('Deleted Successfully!', 4000);
+            };
+            
+        </script>
+        <style>
+                *{
+                box-sizing: border-box;
+            }
+            
+            body {
+                background: url(http://www.shukatsu-note.com/wp-content/uploads/2014/12/computer-564136_1280.jpg) no-repeat;
+                background-size: cover;
+                width: 100%;
+                margin: 0;
+            }
+
+            box {
+                margin: 0 auto;
+                border: 2px solid #fff;
+                border-radius: 20px;
+                background-clip: padding-box;
+            }
+            
+            textarea {
+                height: auto;
+            }
+            
+            td {
+                padding: 0;
+                width: 33%;
+            }
+            
+            card {
+                width: 33%;
+            }
+            
+            #content {
+                padding: .5em .5em .5em;
+            }
+              
+            #content ul {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+              
+            #content li {
+                margin-bottom: 1em;
+                background: #fff;
+                color: #333;
+            }
+              
+            #content p{
+                font-size: 1.3em;
+            }
+            
+            #addcustfab {
+                margin: 1em;
+            }
+            
+            #viewCustomer, #viewFurnace1, #newEquipment, #editCustomer, #editEquipment{
+                border-radius: 20px;
+                width: 35% !important ; 
+                height: 55% !important ; 
+                
+            }
+            
+            #dashboard {
+                background: white;
+                height: -webkit-fill-available;
+                max-height: 875px;
+                padding: 0;
+                
+            }
+            
+            #clist {
+                width: 100%;
+                height: 100%;
+                position: absolute; 
+                /* max-height: 875px; */
+                overflow-y: auto; 
+                overflow-x: hidden;
+            }
+            
+              /* Media Queries */
+  
+            @media (min-width: 700px) {
+                .grid {
+                  /* display: grid; */
+                  grid-template-columns: repeat(3, auto);
+                  }
+              
+                #content ul {
+                  display: flex;
+                  justify-content: space-evenly;
+                }
+              
+                #content li {
+                  width: 31%;
+                }
+            }
+            
+             /*@media (max-width: 625px) {*/
+             /*    .big-container {*/
+             /*        display: none;*/
+             /*    }*/
+             /*}*/
+             /*@media (min-width: 550px) {*/
+             /*    .small-container {*/
+             /*        display: none;*/
+             /*    }*/
+             /*}*/
+             /* Responsive iFrame */
+             /*.responsive-iframe-container {*/
+             /*    position: relative;*/
+             /*    padding-bottom: 56.25%;*/
+             /*    padding-top: 30px;*/
+             /*    height: 0;*/
+             /*    overflow: hidden;*/
+             /*}*/
+             /*.responsive-iframe-container iframe,   */
+             /*.vresponsive-iframe-container object,  */
+             /*.vresponsive-iframe-container embed {*/
+             /*    position: absolute;*/
+             /*    top: 0;*/
+             /*    left: 0;*/
+             /*    width: 100%;*/
+             /*    height: 100%;*/
+             /*}*/
+            
+            
+
+        </style>
+    </body>
+</html>
+

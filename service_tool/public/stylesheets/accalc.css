@@ -1,0 +1,313 @@
+body {
+    min-width: 353px;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #071b3d;
+    color: #fff;
+    font-size: 1.1em;
+    line-height: 1.5em;
+    text-align: center;
+}
+
+img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+h1,h2 {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+p {
+    margin: 0;
+    padding: 1em 0;
+}
+
+.btn {
+    display: inline-block;
+    background: #012b70;
+    color: #fff;
+    padding: 1em 2em;
+    border: 1px solid #666;
+    margin: 0.5em 0;
+}
+  
+  .btn:hover {
+    background: #eaeaea;
+    color: #333;
+  }
+  
+#showcase {
+    border-radius: 25px;
+    color: #fff;
+    background-color: #012b70;
+    padding-top: 75px;
+    min-height: 100px;
+    text-align: center;
+  }
+
+#showcase h1 {
+    padding-top: 20px;
+    padding-bottom: 0;
+}
+
+#showcase .content-wrap,
+#section-a .content-wrap {
+    padding: 0 1.5em;
+}
+
+/* Section A */
+
+#section-a {
+    border-radius: 25px;
+    background: #eaeaea;
+    color: #333;
+    padding-bottom: 2em;
+  }
+  
+.radio {
+    font-size: 1.6em;
+}
+
+input[type="number"] {
+    font-size: 25px;
+    height: 40px;
+    width: 150px;
+    text-align: center;
+}
+
+#selector {
+    width: auto;
+    text-align: center;
+    font-size: 18px;
+    padding:0 ;
+}
+
+#bump_down {
+    float: left;
+}
+
+#btu_selector {
+    display: inline-block;
+    margin: 0 auto;
+    width: 100px;
+}
+
+#bump_up {
+    float: right;
+}
+
+#section1submit {
+    width:auto;
+}
+
+.afue{
+    float: right;
+}
+
+/* Section B */
+
+#condenser1, #condenser2, #condenser3{
+     border-radius: 25px;
+}
+
+#section-b {
+    background-color: #012b70;
+    padding: 2em 1em 1em;
+}
+
+#section-b p {
+    font-size: 1.6em;
+}
+
+#section-b ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+  
+#section-b li {
+    margin-bottom: 1em;
+    background: #fff;
+    color: #333;
+}
+  
+.card-content {
+    padding: 1.5em;
+}
+
+.desc_filter {
+    font-size: .7em;
+}
+
+  /* Section C */
+  
+#section-c {
+    border-radius: 25px;
+    background: #fff;
+    color: #333;
+    padding: 2em;
+}
+
+.payneheadertitle {
+    background: #e67a1d;
+    margin:  auto 0;
+    padding: 1px 0px 1px 0px;
+    min-height: 60px;
+    width: 100%;
+    vertical-align: middle;
+    text-align: center;
+    color: #fff;
+}
+
+.carrierheadertitle {
+    background: #3f48aa;
+    margin:  auto 0;
+    padding: 1px 0px 1px 0px;
+    min-height: 60px;
+    width: 100%;
+    vertical-align: middle;
+    text-align: center;
+    color: #fff;
+}
+	
+.carrierheadertitle h5 {
+    font-size: 1.1em;
+    font-weight: bold;
+    line-height: 25px;
+}
+
+.payneheadertitle h5 {
+    font-size: 1.1em;
+    font-weight: bold;
+    line-height: 25px;
+}
+
+.left-img {
+    width: 95%;
+}
+        
+.mid_txt {
+    margin-bottom: 20px
+}
+
+.mid_txt ul {
+    padding-right: 0
+}
+
+.prod_item ul li {
+    border-top: 1px solid #d4d4d4;
+    list-style-type: none;
+    padding: 5px 0;
+    font-size: 11px;
+    font-size: 1.1rem;
+    margin-right: -27px;
+    float: left;
+    width: 100%;
+    color: #4a4a4a
+}
+
+.prod_item ul li:last-child {
+    border-bottom: 1px solid #d4d4d4
+}
+
+.prod_item ul li i {
+    float: right;
+    color: #32cc32;
+    font-size: 18.6px;
+    font-size: 1.86rem
+}
+
+.fa {
+    color: #32cc32;
+}
+
+input[type="checkbox"] {
+    color: green;
+}
+
+/* Section C */
+
+  /* Section D / Boxes */
+
+table { 
+    width: 100%; 
+    border-collapse: collapse; 
+}
+
+/* Zebra striping */
+section-c tr:nth-of-type(odd) { 
+    background: #eee; 
+}
+
+th { 
+    background: #333; 
+    color: white; 
+    font-weight: bold; 
+}
+
+td, th { 
+    font-size: 1.6em;
+    padding: 6px; 
+    border: 1px solid #ccc; 
+    text-align: center; 
+}
+
+#section-d {
+    background-color: #012b70;
+}
+  
+#section-d .box {
+    padding: 2em;
+    color: #11469b;
+  }
+  
+#section-d .box:first-child {
+    background: #2690d4;
+  }
+  
+/* section E */
+#section-e input{
+    margin: .3em;
+    padding: 1em;
+}
+
+.panel{
+    background: #012b70;
+}
+
+.panel-heading{
+    font-size: 1.8em;
+}
+
+/* Media Queries */
+
+@media (min-width: 760px) {
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(6, auto);
+    }
+    
+    .content-wrap,
+      #section-b ul {
+        grid-column: 3/5;
+    }
+  
+    #section-b ul {
+      display: flex;
+      justify-content: space-around;
+    }
+  
+    #section-b li {
+      width: 31%;
+    }
+    
+    #section-a .content-text {
+    columns: 2;
+    column-gap: 2em;
+    }
+    
+}
